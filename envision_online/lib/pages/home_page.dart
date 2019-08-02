@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:envision_online/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Home', style: TextStyle(color: Colors.black, fontSize: 20.0)),
-        backgroundColor: Colors.white,
+        backgroundColor: cAppPrimaryColor,
         elevation: 0,
       ),
     );
