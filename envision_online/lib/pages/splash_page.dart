@@ -32,6 +32,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onFinishSplash() async {
-    Navigator.push(context, FadeRoute(page: LoginPage()));
+//    Navigator.push(context, FadeRoute(page: LoginPage()));
+    Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginPage()));
   }
 }
