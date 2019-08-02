@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
+import 'dart:async';
+import 'package:envision_online/transitions/fade_route.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -28,6 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  void _onFinishSplash() {
+  void _onFinishSplash() async {
+    Navigator.push(context, FadeRoute(page: LoginPage()));
   }
 }
