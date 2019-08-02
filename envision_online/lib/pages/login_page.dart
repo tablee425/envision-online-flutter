@@ -6,6 +6,8 @@ import 'package:envision_online/components/card_input.dart';
 import 'package:envision_online/utils/colors.dart';
 import 'package:envision_online/utils/constants.dart';
 import 'package:envision_online/components/progress_dialog.dart';
+import 'package:envision_online/futures/app_futures.dart';
+import 'package:envision_online/models/EventObject.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,18 +17,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
 
-  CardInput _emailInput = new CardInput(inputType: InputTypes.Email, callback: (t) { _onUpdateEmail(t); });
-  CardInput _passwordInput = new CardInput(inputType: InputTypes.Password, callback: (t) { _onUpdatePassword(t); });
+  CardInput _emailInput = new CardInput(inputType: InputTypes.Email);
+  CardInput _passwordInput = new CardInput(inputType: InputTypes.Password);
   ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
 
-  String email;
-  String password;
+  bool _isAuthFailed = false;
 
   @override
   void initState() {
     super.initState();
-    email = '';
-    password = '';
+    _isAuthFailed = false;
   }
 
   @override
@@ -62,10 +62,17 @@ class _LoginPageState extends State<LoginPage> {
           _emailInput,
           _passwordInput,
           Padding(padding: EdgeInsets.only(top: 10.0)),
+          _authFailedContainer(),
           CardButton(title: 'Login', callback: () { _onLogin(); }),
         ],
       )
     );
+  }
+
+  Widget _authFailedContainer() {
+    return _isAuthFailed ? Center(
+      child: Text('Authentication Failed', style: TextStyle(color: Colors.redAccent, fontSize: 20.0)),
+    ) : Center();
   }
 
   void _goHomePage() {
@@ -73,16 +80,50 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLogin() {
-    _emailInput.resetText();
-    _passwordInput.resetText();
+    String email = _emailInput.getText();
+    String password = _passwordInput.getText();
+    if (email == '') {
+      globalKey.currentState.showSnackBar(new SnackBar(duration: const Duration(seconds: 1), content: new Text(SnackBarTexts.ENTER_EMAIL)));
+      return;
+    }
+    if (password == '') {
+      globalKey.currentState.showSnackBar(new SnackBar(duration: const Duration(seconds: 1), content: new Text(SnackBarTexts.ENTER_PASS)));
+      return;
+    }
     progressDialog.showProgress();
+    _loginUser(email, password, true);
   }
 
-  static void _onUpdateEmail(String text) {
-    print('email...'+text);
-  }
-
-  static void _onUpdatePassword(String text) {
-    print('password...'+text);
+  void _loginUser(String email, String password, bool remember_me) async {
+    EventObject eventObject = await loginUser(email, password, remember_me);
+    switch(eventObject.id) {
+      case EventConstants.LOGIN_USER_SUCCESSFUL:
+        {
+          setState(() {
+            _emailInput.resetText();
+            _passwordInput.resetText();
+            progressDialog.hideProgress();
+            _goHomePage();
+            _isAuthFailed = false;
+          });
+        }
+        break;
+      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+            _isAuthFailed = true;
+          });
+        }
+        break;
+      case EventConstants.NO_INTERNET_CONNECTION:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+            _isAuthFailed = true;
+          });
+        }
+        break;
+    }
   }
 }

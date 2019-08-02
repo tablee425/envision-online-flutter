@@ -4,12 +4,15 @@ import 'package:envision_online/utils/constants.dart';
 
 class CardInput extends StatefulWidget {
   final String inputType;
-  final Function(String) callback;
   _CardInputState _cardInputState;
-  CardInput({String inputType, Function(String) callback}) : inputType = inputType, callback = callback;
+  CardInput({String inputType}) : inputType = inputType;
 
   void resetText() {
     _cardInputState.resetText();
+  }
+
+  String getText() {
+    return _cardInputState.getText();
   }
 
   @override
@@ -19,14 +22,6 @@ class CardInput extends StatefulWidget {
 class _CardInputState extends State<CardInput> {
 
   TextEditingController editorController = new TextEditingController(text: '');
-  FocusNode _textFocus = new FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    editorController.addListener(_onChange);
-    _textFocus.addListener(_onChange);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +43,6 @@ class _CardInputState extends State<CardInput> {
             new Expanded(
               child: new TextFormField(
                 controller: editorController,
-                focusNode: _textFocus,
                 decoration: InputDecoration(
                   labelText: widget.inputType,
                   labelStyle: TextStyle(fontSize: 18.0),
@@ -64,15 +58,9 @@ class _CardInputState extends State<CardInput> {
     );
   }
 
-  void _onChange() {
-    String text = editorController.text;
-    widget.callback(text);
-  }
-
   static Widget getCardInput(String _inputType, Function(String) _callback) {
     return new CardInput(
       inputType: _inputType,
-      callback: _callback,
     );
   }
 
@@ -80,5 +68,9 @@ class _CardInputState extends State<CardInput> {
     setState(() {
       editorController.clear();
     });
+  }
+
+  String getText() {
+    return editorController.text;
   }
 }
