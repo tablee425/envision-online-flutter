@@ -5,6 +5,7 @@ import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_input.dart';
 import 'package:envision_online/utils/colors.dart';
 import 'package:envision_online/utils/constants.dart';
+import 'package:envision_online/components/progress_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   CardInput _emailInput = new CardInput(inputType: InputTypes.Email, callback: (t) { _onUpdateEmail(t); });
   CardInput _passwordInput = new CardInput(inputType: InputTypes.Password, callback: (t) { _onUpdatePassword(t); });
+  ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
 
   String email;
   String password;
@@ -37,7 +39,12 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: cAppPrimaryColor,
         elevation: 0,
       ),
-      body: _container(),
+      body: new Stack(
+        children: <Widget>[
+          _container(),
+          progressDialog,
+        ],
+      )
     );
   }
 
@@ -68,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
   void _onLogin() {
     _emailInput.resetText();
     _passwordInput.resetText();
+    progressDialog.showProgress();
   }
 
   static void _onUpdateEmail(String text) {
