@@ -13,3 +13,4 @@ const cAppPrimaryColor = const Color(0xFFEEEEEE);
 //const cAppPrimaryColor = const Color(0xFF424242);  // Colors.grey[800]
 //const cAppPrimaryColor = const Color(0xFF303030);  // Colors.grey[850]
 //const cAppPrimaryColor = const Color(0xFF212121);  // Colors.grey[900]
+const cAppButtonBorderColor = const Color(0xFF007aff);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'package:envision_online/components/top_logo_bar.dart';
-import 'package:envision_online/components/primary_button.dart';
+import 'package:envision_online/components/card_button.dart';
+import 'package:envision_online/components/card_input.dart';
 import 'package:envision_online/utils/colors.dart';
+import 'package:envision_online/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,6 +13,19 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
+
+  CardInput _emailInput = new CardInput(inputType: InputTypes.Email, callback: (t) { _onUpdateEmail(t); });
+  CardInput _passwordInput = new CardInput(inputType: InputTypes.Password, callback: (t) { _onUpdatePassword(t); });
+
+  String email;
+  String password;
+
+  @override
+  void initState() {
+    super.initState();
+    email = '';
+    password = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +52,10 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TopLogoBar(),
-          PrimaryButton(title: 'Login', callback: () { _onLogin(); }),
+          _emailInput,
+          _passwordInput,
+          Padding(padding: EdgeInsets.only(top: 10.0)),
+          CardButton(title: 'Login', callback: () { _onLogin(); }),
         ],
       )
     );
@@ -48,6 +66,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLogin() {
-    print('login...');
+    _emailInput.resetText();
+    _passwordInput.resetText();
+  }
+
+  static void _onUpdateEmail(String text) {
+    print('email...'+text);
+  }
+
+  static void _onUpdatePassword(String text) {
+    print('password...'+text);
   }
 }
