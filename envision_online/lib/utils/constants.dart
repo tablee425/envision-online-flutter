@@ -31,3 +31,8 @@ class SnackBarTexts {
   static const String ENTER_EMAIL = 'Please Enter your Email';
   static const String ENTER_PASS = 'Please Enter your Password';
 }
+
+class SharedPreferenceKeys {
+  static const String IS_USER_LOGGED_IN = 'IS_USER_LOGGED_IN';
+  static const String USER = 'USER';
+}

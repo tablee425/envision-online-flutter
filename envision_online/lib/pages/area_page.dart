@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:envision_online/utils/colors.dart';
 import 'splash_page.dart';
-import 'area_page.dart';
 import 'package:envision_online/utils/app_shared_preferences.dart';
 import 'package:envision_online/components/progress_dialog.dart';
 import 'package:envision_online/utils/constants.dart';
@@ -9,12 +8,12 @@ import 'package:envision_online/components/top_logo_bar.dart';
 import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 
-class HomePage extends StatefulWidget {
+class AreaPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _AreaPageState createState() => _AreaPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AreaPageState extends State<AreaPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
   ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
 
@@ -25,19 +24,19 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: cAppPrimaryColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text('Home', style: TextStyle(color: Colors.black, fontSize: 20.0)),
+        title: Text('Area', style: TextStyle(color: Colors.black, fontSize: 20.0)),
         backgroundColor: cAppPrimaryColor,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         brightness: Brightness.light,
       ),
       body: new SafeArea(
-        child: new Stack(
-          children: <Widget>[
-            _container(),
-            progressDialog,
-          ],
-        )
+          child: new Stack(
+            children: <Widget>[
+              _container(),
+              progressDialog,
+            ],
+          )
       ),
     );
   }
@@ -54,19 +53,8 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             TopLogoBar(),
             Padding(padding: EdgeInsets.only(top: 10.0)),
-            CardText(title: 'Choose Option Below'),
-            CardButton(title: 'Enter Pig Runs', callback: () { _onEnterPigRuns(); }),
-            CardButton(title: 'Sync', callback: () { _onSync(); }),
-            CardButton(title: 'Settings', callback: () { _onSettings(); }),
-            new Expanded(
-              child: new Container(
-                margin: EdgeInsets.only(bottom: 0),
-              ),
-            ),
-            CardButton(title: 'Logout', callback: () { _onLogout(); }),
-            new Container(
-              height: 10,
-            ),
+            CardText(title: 'Select Area'),
+            CardButton(title: 'Next', callback: () { _onNext(); }),
           ],
         )
     );
@@ -78,20 +66,8 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushReplacement(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new SplashPage()));
   }
 
-  void _onEnterPigRuns() {
-    Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage()));
-  }
+  void _onNext() {
 
-  void _onSync() {
-
-  }
-
-  void _onSettings() {
-
-  }
-
-  void _onLogout() {
-    showDialog(context: globalKey.currentContext, barrierDismissible: false, child: _logoutDialog());
   }
 
   Widget _logoutDialog() {

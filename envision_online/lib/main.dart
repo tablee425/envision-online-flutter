@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:envision_online/pages/splash_page.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -10,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       home: SplashPage(),
     );

@@ -8,6 +8,7 @@ import 'package:envision_online/utils/constants.dart';
 import 'package:envision_online/components/progress_dialog.dart';
 import 'package:envision_online/futures/app_futures.dart';
 import 'package:envision_online/models/EventObject.dart';
+import 'package:envision_online/utils/app_shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -33,11 +34,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: globalKey,
+      backgroundColor: cAppPrimaryColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Please Login', style: TextStyle(color: Colors.black, fontSize: 20.0)),
         backgroundColor: cAppPrimaryColor,
         elevation: 0,
+        brightness: Brightness.light,
       ),
       body: new Stack(
         children: <Widget>[
@@ -76,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _goHomePage() {
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage()));
+    Navigator.pushReplacement(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new HomePage()));
   }
 
   void _onLogin() {
@@ -100,6 +103,8 @@ class _LoginPageState extends State<LoginPage> {
       case EventConstants.LOGIN_USER_SUCCESSFUL:
         {
           setState(() {
+            AppSharedPreferences.setUserLoggedIn(true);
+            AppSharedPreferences.setUserProfile(eventObject.object);
             _emailInput.resetText();
             _passwordInput.resetText();
             progressDialog.hideProgress();

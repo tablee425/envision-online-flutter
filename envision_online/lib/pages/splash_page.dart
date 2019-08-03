@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'home_page.dart';
 import 'dart:async';
 import 'package:envision_online/transitions/fade_route.dart';
+import 'package:envision_online/utils/app_shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -32,7 +34,15 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onFinishSplash() async {
-//    Navigator.push(context, FadeRoute(page: LoginPage()));
-    Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginPage()));
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new HomePage()));
+        } else {
+          Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginPage()));
+        }
+      });
+    }
   }
 }
