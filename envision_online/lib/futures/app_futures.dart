@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:envision_online/models/ApiRequest_User.dart';
 import 'package:envision_online/models/ApiRequest_Area.dart';
+import 'package:envision_online/models/ApiRequest_Field.dart';
 import 'package:envision_online/models/ApiResponse_User.dart';
 import 'package:envision_online/models/EventObject.dart';
 import 'package:envision_online/models/AreaObject.dart';
+import 'package:envision_online/models/FieldObject.dart';
 import 'package:envision_online/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:envision_online/models/User.dart';
@@ -60,5 +62,33 @@ Future<AreaObject> fetchArea(int company_id, int user_id) async {
     }
   } catch (Exception) {
     return AreaObject();
+  }
+}
+
+//////////////////////////////// Fetch Field API ////////////////////////////////////////////////////////////////////////////////////////////////////////
+Future<FieldObject> fetchField(int area_id) async {
+  ApiRequest_Field apiRequest = new ApiRequest_Field();
+
+  print('area_id~~~~~~~~~~~~~~~~~~~~~~');
+  print(area_id);
+
+  apiRequest.area_id = area_id;
+
+  try {
+    final response = await http.post(APIConstants.API_BASE_URL + APIConstants.API_ENDPOINT_FETCH_FIELD, body: json.encode(apiRequest.toJson()), headers: {'content-type': "application/json"},);
+    if (response != null) {
+      if (response.statusCode == APIResponseCode.SC_OK && response.body != null) {
+        final responseJson = json.decode(response.body);
+        print('response~~~~~~~~~~~~~~~~~~~~');
+        print(responseJson);
+        return new FieldObject(id: EventConstants.FETCH_FIELD_SUCCESSFUL, object: responseJson);
+      } else {
+        return new FieldObject(id: EventConstants.FETCH_FIELD_UN_SUCCESSFUL);
+      }
+    } else {
+      return new FieldObject();
+    }
+  } catch (Exception) {
+    return FieldObject();
   }
 }

@@ -113,7 +113,11 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             progressDialog.hideProgress();
             List areas = areaObject.object;
-            Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage(areas: areas,)));
+            if (areas.length > 0) {
+              Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage(areas: areas)));
+            } else {
+              globalKey.currentState.showSnackBar(new SnackBar(duration: const Duration(seconds: 1), content: new Text(SnackBarTexts.NO_AREA)));
+            }
           });
         }
         break;

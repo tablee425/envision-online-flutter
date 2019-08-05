@@ -1,11 +1,13 @@
 class InputTypes {
   static const String Email = 'Email';
   static const String Password = 'Password';
+  static const String Operator = 'Operator';
 }
 
 class ProgressDialogTitles {
   static const String USER_LOG_IN = 'Logging In...';
   static const String FETCHING_AREA = 'Fetching Area...';
+  static const String FETCHING_FIELD = 'Fetching Field...';
 }
 
 class EventConstants {
@@ -15,12 +17,17 @@ class EventConstants {
 
   static const int FETCH_AREA_SUCCESSFUL = 502;
   static const int FETCH_AREA_UN_SUCCESSFUL = 503;
+
+  static const int FETCH_FIELD_SUCCESSFUL = 504;
+  static const int FETCH_FIELD_UN_SUCCESSFUL = 505;
 }
 
 class APIConstants {
-  static const String API_BASE_URL = 'http://172.20.49.62';
+  static const String SERVER_TYPE = 'DEV_';
+  static const String API_BASE_URL = SERVER_TYPE == 'DEV' ? 'http://172.20.49.62' : 'https://dev1envision.prodesy.com';
   static const String API_ENDPOINT_LOGIN = '/api/auth/login';
   static const String API_ENDPOINT_FETCH_AREA = '/api/area/fetch';
+  static const String API_ENDPOINT_FETCH_FIELD = '/api/field/fetch';
 }
 
 class APIResponseCode {
@@ -35,6 +42,7 @@ class APIOperations {
 class SnackBarTexts {
   static const String ENTER_EMAIL = 'Please Enter your Email';
   static const String ENTER_PASS = 'Please Enter your Password';
+  static const String NO_AREA = 'Not Found any Area';
 }
 
 class SharedPreferenceKeys {
