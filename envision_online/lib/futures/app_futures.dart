@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:envision_online/models/ApiRequest_User.dart';
+import 'package:envision_online/models/ApiRequest_Area.dart';
 import 'package:envision_online/models/ApiResponse_User.dart';
 import 'package:envision_online/models/EventObject.dart';
+import 'package:envision_online/models/AreaObject.dart';
 import 'package:envision_online/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:envision_online/models/User.dart';
@@ -34,5 +36,29 @@ Future<EventObject> loginUser(String email, String password, bool remember_me) a
     }
   } catch (Exception) {
     return EventObject();
+  }
+}
+
+//////////////////////////////// Fetch Area API ////////////////////////////////////////////////////////////////////////////////////////////////////////
+Future<AreaObject> fetchArea(int company_id, int user_id) async {
+  ApiRequest_Area apiRequest = new ApiRequest_Area();
+
+  apiRequest.company_id = company_id;
+  apiRequest.user_id = user_id;
+
+  try {
+    final response = await http.post(APIConstants.API_BASE_URL + APIConstants.API_ENDPOINT_FETCH_AREA, body: json.encode(apiRequest.toJson()), headers: {'content-type': "application/json"},);
+    if (response != null) {
+      if (response.statusCode == APIResponseCode.SC_OK && response.body != null) {
+        final responseJson = json.decode(response.body);
+        return new AreaObject(id: EventConstants.FETCH_AREA_SUCCESSFUL, object: responseJson);
+      } else {
+        return new AreaObject(id: EventConstants.FETCH_AREA_UN_SUCCESSFUL);
+      }
+    } else {
+      return new AreaObject();
+    }
+  } catch (Exception) {
+    return AreaObject();
   }
 }

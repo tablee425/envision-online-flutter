@@ -12,11 +12,15 @@ class EventConstants {
   static const int NO_INTERNET_CONNECTION = 0;
   static const int LOGIN_USER_SUCCESSFUL = 500;
   static const int LOGIN_USER_UN_SUCCESSFUL = 501;
+
+  static const int FETCH_AREA_SUCCESSFUL = 502;
+  static const int FETCH_AREA_UN_SUCCESSFUL = 503;
 }
 
 class APIConstants {
   static const String API_BASE_URL = 'http://172.20.49.62';
   static const String API_ENDPOINT_LOGIN = '/api/auth/login';
+  static const String API_ENDPOINT_FETCH_AREA = '/api/area/fetch';
 }
 
 class APIResponseCode {

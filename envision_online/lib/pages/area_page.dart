@@ -10,6 +10,9 @@ import 'package:envision_online/components/card_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class AreaPage extends StatefulWidget {
+  final areas;
+  AreaPage({Key key, @required this.areas}) : super(key: key);
+
   @override
   _AreaPageState createState() => _AreaPageState();
 }
@@ -17,12 +20,14 @@ class AreaPage extends StatefulWidget {
 class _AreaPageState extends State<AreaPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
   ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
-  String dropdownValue = '';
+  List areas;
+  String dropdownValue;
 
   @override
   void initState() {
     super.initState();
-    dropdownValue = 'One';
+    areas = widget.areas;
+    dropdownValue = areas[0]['name'];
   }
 
   @override
@@ -80,13 +85,7 @@ class _AreaPageState extends State<AreaPage> {
             dropdownValue = newValue;
           });
         },
-        items: <String>['One', 'Two', 'Free', 'Four']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+        items: areas.map((area) => DropdownMenuItem<String>(value: area['name'], child: Text(area['name']))).toList(),
       ),
     );
   }

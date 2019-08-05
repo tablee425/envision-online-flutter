@@ -9,6 +9,11 @@ import 'package:envision_online/components/top_logo_bar.dart';
 import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 import 'package:envision_online/models/User.dart';
+import 'package:envision_online/futures/app_futures.dart';
+import 'package:envision_online/models/EventObject.dart';
+import 'package:envision_online/models/AreaObject.dart';
+import 'package:envision_online/utils/app_shared_preferences.dart';
+import 'package:envision_online/models/Area.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -96,9 +101,37 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onEnterPigRuns() {
-//    print(user.user_id);
     progressDialog.showProgress();
-//    Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage()));
+    _fetchArea(AppConfig.COMPANY_ID, user.user_id);
+  }
+
+  void _fetchArea(int company_id, int user_id) async {
+    AreaObject areaObject = await fetchArea(company_id, user_id);
+    switch(areaObject.id) {
+      case EventConstants.FETCH_AREA_SUCCESSFUL:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+            List areas = areaObject.object;
+            Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage(areas: areas,)));
+          });
+        }
+        break;
+      case EventConstants.FETCH_AREA_UN_SUCCESSFUL:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+      case EventConstants.NO_INTERNET_CONNECTION:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+    }
   }
 
   void _onSync() {

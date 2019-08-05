@@ -1,4 +1,3 @@
-import 'Area.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 ApiRequest_Area _$ApiRequest_AreaFromJson(Map<String, dynamic> json) => new ApiRequest_Area(

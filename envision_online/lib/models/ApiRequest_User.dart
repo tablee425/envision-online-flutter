@@ -1,4 +1,3 @@
-import 'User.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 ApiRequest_User _$ApiRequest_UserFromJson(Map<String, dynamic> json) => new ApiRequest_User(
