@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:envision_online/utils/colors.dart';
 import 'package:envision_online/components/top_logo_bar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:envision_online/components/card_pigging.dart';
 
 class PiggingPage extends StatefulWidget {
   final selected_areaname;
@@ -63,15 +64,13 @@ class _PiggingPageState extends State<PiggingPage> {
                 TopLogoBar(),
                 Padding(padding: EdgeInsets.only(top: 10.0)),
                 Text('Location: ' + selected_areaname, style: TextStyle(color: Colors.green, fontSize: 20.0)),
+                Padding(padding: EdgeInsets.only(top: 10.0)),
+                CardPigging(piggingId: '123', startLocation: '0324', endLocation: '3223', orderId: '1', callback: () { print('pigging~~~'); },),
               ],
             ),
           ],
         )
 
     );
-  }
-
-  void _onNext() {
-
   }
 }
