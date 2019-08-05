@@ -14,6 +14,7 @@ class ProgressDialogTitles {
   static const String USER_LOG_IN = 'Logging In...';
   static const String FETCHING_AREA = 'Fetching Area...';
   static const String FETCHING_FIELD = 'Fetching Field...';
+  static const String FETCHING_PIGGING = 'Fetching Pigging...';
 }
 
 class EventConstants {
@@ -26,6 +27,9 @@ class EventConstants {
 
   static const int FETCH_FIELD_SUCCESSFUL = 504;
   static const int FETCH_FIELD_UN_SUCCESSFUL = 505;
+
+  static const int FETCH_PIGGING_SUCCESSFUL = 506;
+  static const int FETCH_PIGGING_UN_SUCCESSFUL = 507;
 }
 
 class APIConstants {
@@ -34,6 +38,7 @@ class APIConstants {
   static const String API_ENDPOINT_LOGIN = '/api/auth/login';
   static const String API_ENDPOINT_FETCH_AREA = '/api/area/fetch';
   static const String API_ENDPOINT_FETCH_FIELD = '/api/field/fetch';
+  static const String API_ENDPOINT_FETCH_PIGGING = '/api/piggings/fetch';
 }
 
 class APIResponseCode {

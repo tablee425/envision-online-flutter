@@ -7,7 +7,8 @@ import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:envision_online/components/card_input.dart';
-import 'package:envision_online/pages/pigging_page.dart';
+import 'package:envision_online/futures/app_futures.dart';
+import 'package:envision_online/models/PiggingObject.dart';
 
 class FieldPage extends StatefulWidget {
   final areas;
@@ -28,7 +29,7 @@ class FieldPage extends StatefulWidget {
 
 class _FieldPageState extends State<FieldPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
-  ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
+  ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.FETCHING_PIGGING);
   CardInput _opInput = new CardInput(inputType: InputTypes.Operator);
   List areas;
   List fields;
@@ -208,14 +209,44 @@ class _FieldPageState extends State<FieldPage> {
   }
 
   void _onNext() {
+    progressDialog.showProgress();
+    _fetchPigging(205, '', 2019, 8, 1);
+//    Navigator.push(
+//      globalKey.currentContext,
+//      new MaterialPageRoute(
+//        builder: (context) => new PiggingPage(
+//          selected_areaname: selected_areaname
+//        ),
+//      ),
+//    );
+  }
 
-    Navigator.push(
-      globalKey.currentContext,
-      new MaterialPageRoute(
-        builder: (context) => new PiggingPage(
-          selected_areaname: selected_areaname
-        ),
-      ),
-    );
+  void _fetchPigging(int field_id, String operator, int year, int month, int view) async {
+    PiggingObject piggingObject = await fetchPigging(field_id, operator, year, month, view);
+    switch(piggingObject.id) {
+      case EventConstants.FETCH_PIGGING_SUCCESSFUL:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+            List piggings = piggingObject.object;
+            print(piggings.length);
+          });
+        }
+        break;
+      case EventConstants.FETCH_PIGGING_UN_SUCCESSFUL:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+      case EventConstants.NO_INTERNET_CONNECTION:
+        {
+          setState(() {
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+    }
   }
 }
