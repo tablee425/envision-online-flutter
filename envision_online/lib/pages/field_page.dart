@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:envision_online/components/card_input.dart';
 import 'package:envision_online/futures/app_futures.dart';
 import 'package:envision_online/models/PiggingObject.dart';
+import 'package:envision_online/pages/pigging_page.dart';
 
 class FieldPage extends StatefulWidget {
   final areas;
@@ -210,15 +211,7 @@ class _FieldPageState extends State<FieldPage> {
 
   void _onNext() {
     progressDialog.showProgress();
-    _fetchPigging(205, '', 2019, 8, 1);
-//    Navigator.push(
-//      globalKey.currentContext,
-//      new MaterialPageRoute(
-//        builder: (context) => new PiggingPage(
-//          selected_areaname: selected_areaname
-//        ),
-//      ),
-//    );
+    _fetchPigging(int.parse(selected_field), '', int.parse(selected_year), int.parse(selected_month), 1);
   }
 
   void _fetchPigging(int field_id, String operator, int year, int month, int view) async {
@@ -229,7 +222,15 @@ class _FieldPageState extends State<FieldPage> {
           setState(() {
             progressDialog.hideProgress();
             List piggings = piggingObject.object;
-            print(piggings.length);
+            Navigator.push(
+              globalKey.currentContext,
+              new MaterialPageRoute(
+                builder: (context) => new PiggingPage(
+                  selected_areaname: selected_areaname,
+                  piggings: piggings,
+                ),
+              ),
+            );
           });
         }
         break;
