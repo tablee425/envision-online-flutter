@@ -69,9 +69,6 @@ Future<AreaObject> fetchArea(int company_id, int user_id) async {
 Future<FieldObject> fetchField(int area_id) async {
   ApiRequest_Field apiRequest = new ApiRequest_Field();
 
-  print('area_id~~~~~~~~~~~~~~~~~~~~~~');
-  print(area_id);
-
   apiRequest.area_id = area_id;
 
   try {
@@ -79,8 +76,6 @@ Future<FieldObject> fetchField(int area_id) async {
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK && response.body != null) {
         final responseJson = json.decode(response.body);
-        print('response~~~~~~~~~~~~~~~~~~~~');
-        print(responseJson);
         return new FieldObject(id: EventConstants.FETCH_FIELD_SUCCESSFUL, object: responseJson);
       } else {
         return new FieldObject(id: EventConstants.FETCH_FIELD_UN_SUCCESSFUL);

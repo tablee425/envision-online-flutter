@@ -10,10 +10,7 @@ import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 import 'package:envision_online/models/User.dart';
 import 'package:envision_online/futures/app_futures.dart';
-import 'package:envision_online/models/EventObject.dart';
 import 'package:envision_online/models/AreaObject.dart';
-import 'package:envision_online/utils/app_shared_preferences.dart';
-import 'package:envision_online/models/Area.dart';
 
 class HomePage extends StatefulWidget {
   @override

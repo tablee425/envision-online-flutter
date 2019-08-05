@@ -7,7 +7,6 @@ import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:envision_online/pages/field_page.dart';
-import 'package:envision_online/models/Area.dart';
 import 'package:envision_online/futures/app_futures.dart';
 import 'package:envision_online/models/FieldObject.dart';
 

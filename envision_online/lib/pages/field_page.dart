@@ -34,6 +34,12 @@ class _FieldPageState extends State<FieldPage> {
   String selected_area;
   String selected_areaname;
   String selected_field;
+  List<String> year = ['2016', '2017', '2018', '2019', '2020', '2021', '2022'];
+  String selected_year;
+  List<String> month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  String selected_month;
+  List runTypes = [RunTypes.Maintenance, RunTypes.CorrosionBatch, RunTypes.PressureCheck];
+  String selected_runType;
 
   @override
   void initState() {
@@ -43,6 +49,9 @@ class _FieldPageState extends State<FieldPage> {
     selected_area = widget.selected_area;
     selected_areaname = widget.selected_areaname;
     selected_field = fields[0]['id'].toString();
+    selected_year = DateTime.now().year.toString();
+    selected_month = DateTime.now().month.toString();
+    selected_runType = RunTypes.Maintenance;
   }
 
   @override
@@ -89,15 +98,15 @@ class _FieldPageState extends State<FieldPage> {
               _buildFieldDropdown(),
               Padding(padding: EdgeInsets.only(top: 20.0)),
               CardText(title: 'Select Year'),
-              _buildFieldDropdown(),
+              _buildYearDropdown(),
               Padding(padding: EdgeInsets.only(top: 20.0)),
               CardText(title: 'Select Month'),
-              _buildFieldDropdown(),
+              _buildMonthDropdown(),
               Padding(padding: EdgeInsets.only(top: 20.0)),
               _opInput,
               Padding(padding: EdgeInsets.only(top: 20.0)),
               CardText(title: 'Run Type'),
-              _buildFieldDropdown(),
+              _buildRunTypeDropdown(),
               Padding(padding: EdgeInsets.only(top: 20.0)),
               CardButton(title: 'Next', callback: () { _onNext(); }),
             ],
@@ -122,6 +131,66 @@ class _FieldPageState extends State<FieldPage> {
               });
             },
             items: fields.map((field) => DropdownMenuItem<String>(value: field['id'].toString(), child: Text(_getFieldTextByIndex(field['id'])))).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildYearDropdown() {
+    return Container(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          DropdownButton(
+            isExpanded: true,
+            value: selected_year,
+            onChanged: (String newValue) {
+              setState(() {
+                selected_year = newValue;
+              });
+            },
+            items: year.map((y) => DropdownMenuItem<String>(value: y, child: Text(y))).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMonthDropdown() {
+    return Container(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          DropdownButton(
+            isExpanded: true,
+            value: selected_month,
+            onChanged: (String newValue) {
+              setState(() {
+                selected_month = newValue;
+              });
+            },
+            items: month.map((m) => DropdownMenuItem<String>(value: m, child: Text(m))).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRunTypeDropdown() {
+    return Container(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          DropdownButton(
+            isExpanded: true,
+            value: selected_runType,
+            onChanged: (String newValue) {
+              setState(() {
+                selected_runType = newValue;
+              });
+            },
+            items: runTypes.map((r) => DropdownMenuItem<String>(value: r, child: Text(r))).toList(),
           ),
         ],
       ),

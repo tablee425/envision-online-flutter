@@ -4,6 +4,12 @@ class InputTypes {
   static const String Operator = 'Operator';
 }
 
+class RunTypes {
+  static const String Maintenance = 'Maintenance';
+  static const String CorrosionBatch = 'Corrosion Batch';
+  static const String PressureCheck = 'Pressure Check';
+}
+
 class ProgressDialogTitles {
   static const String USER_LOG_IN = 'Logging In...';
   static const String FETCHING_AREA = 'Fetching Area...';
