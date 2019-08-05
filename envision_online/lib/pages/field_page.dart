@@ -7,6 +7,7 @@ import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:envision_online/components/card_input.dart';
+import 'package:envision_online/pages/pigging_page.dart';
 
 class FieldPage extends StatefulWidget {
   final areas;
@@ -207,6 +208,13 @@ class _FieldPageState extends State<FieldPage> {
   }
 
   void _onNext() {
-
+    Navigator.push(
+      globalKey.currentContext,
+      new MaterialPageRoute(
+        builder: (context) => new PiggingPage(
+          selected_areaname: selected_areaname
+        ),
+      ),
+    );
   }
 }
