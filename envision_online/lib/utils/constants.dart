@@ -5,6 +5,7 @@ class InputTypes {
 
 class ProgressDialogTitles {
   static const String USER_LOG_IN = 'Logging In...';
+  static const String FETCHING_AREA = 'Fetching Area...';
 }
 
 class EventConstants {
@@ -35,4 +36,8 @@ class SnackBarTexts {
 class SharedPreferenceKeys {
   static const String IS_USER_LOGGED_IN = 'IS_USER_LOGGED_IN';
   static const String USER = 'USER';
+}
+
+class AppConfig {
+  static const int COMPANY_ID = 13;
 }

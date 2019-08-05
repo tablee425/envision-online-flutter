@@ -8,6 +8,7 @@ import 'package:envision_online/utils/constants.dart';
 import 'package:envision_online/components/top_logo_bar.dart';
 import 'package:envision_online/components/card_button.dart';
 import 'package:envision_online/components/card_text.dart';
+import 'package:envision_online/models/User.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,6 +18,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final globalKey = new GlobalKey<ScaffoldState>();
   ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
+  User user;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (user == null) {
+      await initUserProfile();
+    }
+  }
+
+  Future<void> initUserProfile() async {
+    User up = await AppSharedPreferences.getUserProfile();
+    setState(() {
+      user = up;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +96,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onEnterPigRuns() {
-    Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage()));
+    print(user.user_id);
+//    Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage()));
   }
 
   void _onSync() {

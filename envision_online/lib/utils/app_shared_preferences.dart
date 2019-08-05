@@ -28,7 +28,8 @@ class AppSharedPreferences {
 
   static Future<User> getUserProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return User.fromJson(json.decode(prefs.getString(SharedPreferenceKeys.USER)));
+    String d = prefs.getString(SharedPreferenceKeys.USER);
+    return User.fromJson(json.decode(d));
   }
 
   static Future<void> setUserProfile(User user) async {

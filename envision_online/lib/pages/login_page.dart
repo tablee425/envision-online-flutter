@@ -18,8 +18,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
 
-  CardInput _emailInput = new CardInput(inputType: InputTypes.Email);
-  CardInput _passwordInput = new CardInput(inputType: InputTypes.Password);
+  CardInput _emailInput = new CardInput(inputType: InputTypes.Email, initialValue: 'anthonyb@icloud.com',);
+  CardInput _passwordInput = new CardInput(inputType: InputTypes.Password, initialValue: 'Embark01',);
   ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
 
   bool _isAuthFailed = false;

@@ -4,8 +4,9 @@ import 'package:envision_online/utils/constants.dart';
 
 class CardInput extends StatefulWidget {
   final String inputType;
+  final String initialValue;
   _CardInputState _cardInputState;
-  CardInput({String inputType}) : inputType = inputType;
+  CardInput({String inputType, String initialValue}) : inputType = inputType, initialValue = initialValue;
 
   void resetText() {
     _cardInputState.resetText();
@@ -21,7 +22,15 @@ class CardInput extends StatefulWidget {
 
 class _CardInputState extends State<CardInput> {
 
-  TextEditingController editorController = new TextEditingController(text: '');
+  TextEditingController editorController;
+  String initialValue = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initialValue = widget.initialValue == null ? '' : widget.initialValue;
+    editorController = new TextEditingController(text: initialValue);
+  }
 
   @override
   Widget build(BuildContext context) {

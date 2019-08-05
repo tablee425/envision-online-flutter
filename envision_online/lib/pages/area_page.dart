@@ -69,27 +69,6 @@ class _AreaPageState extends State<AreaPage> {
     );
   }
 
-  void _logout() {
-    Navigator.of(globalKey.currentContext).pop();
-    AppSharedPreferences.clear();
-    Navigator.pushReplacement(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new SplashPage()));
-  }
-
-  void _onNext() {
-
-  }
-
-  Widget _logoutDialog() {
-    return new AlertDialog(
-      title: new Text('Logout'),
-      content: new Text('Are you sure you want to logout from the app'),
-      actions: <Widget>[
-        new FlatButton(onPressed: () { _logout(); }, child: new Text('OK')),
-        new FlatButton(onPressed: () { Navigator.of(globalKey.currentContext).pop(); }, child: new Text('Cancel')),
-      ],
-    );
-  }
-
   Widget _areaList() {
     return Container(
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -110,5 +89,9 @@ class _AreaPageState extends State<AreaPage> {
         }).toList(),
       ),
     );
+  }
+
+  void _onNext() {
+
   }
 }
