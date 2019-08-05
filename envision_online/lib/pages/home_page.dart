@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final globalKey = new GlobalKey<ScaffoldState>();
-  ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_LOG_IN);
+  ProgressDialog progressDialog = ProgressDialog.getProgressDialog(ProgressDialogTitles.FETCHING_AREA);
   User user;
 
   @override
@@ -96,7 +96,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onEnterPigRuns() {
-    print(user.user_id);
+//    print(user.user_id);
+    progressDialog.showProgress();
 //    Navigator.push(globalKey.currentContext, new MaterialPageRoute(builder: (context) => new AreaPage()));
   }
 

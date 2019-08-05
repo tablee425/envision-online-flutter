@@ -75,8 +75,8 @@ class _ProgressDialogState extends State<ProgressDialog> {
             children: <Widget>[
               new Center(
                 child: new Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: 120.0,
+                  height: 120.0,
                   decoration: new BoxDecoration(
                     color: containerColor,
                     borderRadius: new BorderRadius.all(new Radius.circular(borderRadius)),
